@@ -1,0 +1,19 @@
+resource_group_name = "url-poc-vivek-rg"
+location            = "centralindia"
+vnet_name           = "url-poc-vivek-VNet"
+address_space       = ["10.0.0.0/16"]
+public_subnet_prefix = "10.0.1.0/24"
+private_subnet_prefix = "10.0.2.0/24"
+aks_name            = "url-poc-vivek-aks"
+dns_prefix          = "url-aks"
+node_count          = 2
+vm_size             = "Standard_DS2_v2"
+jump_host_password  = "Urolime123#"
+key_vault_name      = "pockeyvaulvivtulm41oct"
+secret_name         = "pockeysecrevivtulm41oct"
+acr_name            = "urlpocvivekacr"
+tenant_id = "Value"
+subscription_id = "Value"
+client_id = "Value"
+client_secret = "Value"
+
