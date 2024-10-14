@@ -8,8 +8,12 @@ resource "google_storage_bucket" "bucket" {
   force_destroy               = var.force_destroy
   public_access_prevention    = var.public_access_prevention
 
-  versioning {
-    enabled = var.versioning
+   # Enable versioning only if retention policy is not set
+  dynamic "versioning" {
+    for_each = var.retention_policy == null ? [1] : []
+    content {
+      enabled = var.versioning
+    }
   }
 
   autoclass {

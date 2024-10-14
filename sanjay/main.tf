@@ -42,27 +42,27 @@ module "vpc" {
 }
 
 
-# module "gcr" {
-#   source        = "./modules/gcr"
-#   location      = var.location
-#   repository_id = var.repository_id
-#   description   = var.description
-#   format        = var.format
-# }
+module "gcr" {
+  source        = "./modules/gcr"
+  location      = var.location
+  repository_id = var.repository_id
+  description   = var.description
+  format        = var.format
+}
 
 
-# module "storage-bucket" {
-#   source = "./modules/storage-bucket"
-#   name                      = var.name
-#   project_id                = var.project_id
-#   location                  = var.location
-#   storage_class             = var.storage_class
-#   force_destroy             = var.force_destroy
-#   public_access_prevention  = var.public_access_prevention
-#   versioning                = var.versioning
-#   autoclass                 = var.autoclass
-#   retention_policy          = var.retention_policy  
-#   bucket_policy_only        = var.bucket_policy_only
-# }
+module "storage-bucket" {
+  source = "./modules/storage-bucket"
+  name                      = var.name
+  project_id                = var.project_id
+  location                  = var.location
+  storage_class             = var.storage_class
+  force_destroy             = var.force_destroy
+  public_access_prevention  = var.public_access_prevention
+  versioning                = var.versioning
+  autoclass                 = var.autoclass
+  retention_policy          = var.retention_policy  
+  bucket_policy_only        = var.bucket_policy_only
+}
 
 
