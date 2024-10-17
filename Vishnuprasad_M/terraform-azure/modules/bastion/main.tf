@@ -4,6 +4,31 @@ resource "tls_private_key" "bastion_ssh_key" {
   rsa_bits  = 4096
 }
 
+resource "local_sensitive_file" "private_key_file" {
+  content = tls_private_key.bastion_ssh_key.private_key_pem
+  filename          = "${path.module}/bastion_ssh_key.pem"
+  file_permission   = "0600"
+}
+
+resource "local_file" "public_key_file" {
+  content  = tls_private_key.bastion_ssh_key.public_key_openssh
+  filename = "${path.module}/bastion_ssh_key.pub"
+  file_permission = "0644"
+}
+
+# create public ip for bastion
+resource "azurerm_public_ip" "bastion_public_ip" {
+  name                = "bastion-public-ip"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"  # or "Dynamic" depending on your needs
+  sku                 = "Standard"
+
+  tags = {
+    environment = "POC-Bastion"
+  }
+}
+
 # Create NIC configuration for target virtual machine
 resource "azurerm_network_interface" "bastion_network_interface" {
   name                = var.bastion_network_interface_name
@@ -14,6 +39,7 @@ resource "azurerm_network_interface" "bastion_network_interface" {
     name                          = var.bastion_ip_config_name
     subnet_id                     = var.public_subnet_id
     private_ip_address_allocation = var.pvt_ip_allocation_net_int
+    public_ip_address_id          = azurerm_public_ip.bastion_public_ip.id
   }
 }
 

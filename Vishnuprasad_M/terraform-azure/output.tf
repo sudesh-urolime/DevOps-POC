@@ -35,3 +35,21 @@
 #   value       = module.network_security_group["nsg2"].nsg_id
 #   description = "The ID of the private network security group"
 # }
+output "module_bastion_public_key" {
+  value = module.bastion.public_key
+  sensitive = true
+}
+
+output "module_bastion_private_key" {
+  value = module.bastion.private_key
+  sensitive = true
+}
+
+output "module_bastion_private_key_path" {
+  value = module.bastion.private_key_path
+  sensitive = true
+}
+
+output "module_bastion_public_key_path" {
+  value = module.bastion.public_key_path
+}
