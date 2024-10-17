@@ -133,29 +133,70 @@ location =  "centralindia" #"eastus"
 
 
 ###
-vnet_security_group_name       = "vnet_security_group_poc"
-nsg_rules   = {
-  rule1 = {
-    name                       = "allow_https_outbound"
-    priority                   = 100
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+# vnet_security_group_name       = "vnet_security_group_poc"
+# nsg_rules   = {
+#   rule1 = {
+#     name                       = "allow_https_outbound"
+#     priority                   = 100
+#     direction                  = "Outbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "443"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
+#   rule2 = {
+#     name                       = "allow_ssh_inbound"
+#     priority                   = 101
+#     direction                  = "Inbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "22"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
+# }
+public_nsg_name    = "public-nsg"
+private_nsg_name   = "private-nsg"
+
+public_nsg_rules = {
+  "rule1" = {
+    name                      = "allow_https"
+    priority                  = 100
+    direction                 = "Inbound"
+    access                    = "Allow"
+    protocol                  = "Tcp"
+    source_port_range         = "*"
+    destination_port_range    = "443"
+    source_address_prefix     = "*"
+    destination_address_prefix= "*"
+  },
+  "rule2" = {
+    name                      = "allow_ssh"
+    priority                  = 110
+    direction                 = "Inbound"
+    access                    = "Allow"
+    protocol                  = "Tcp"
+    source_port_range         = "*"
+    destination_port_range    = "22"
+    source_address_prefix     = "*"
+    destination_address_prefix= "*"
   }
-  rule2 = {
-    name                       = "allow_ssh_inbound"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+}
+
+private_nsg_rules = {
+  "rule1" = {
+    name                      = "deny_all_outbound"
+    priority                  = 120
+    direction                 = "Outbound"
+    access                    = "Deny"
+    protocol                  = "Tcp"
+    source_port_range         = "*"
+    destination_port_range    = "*"
+    source_address_prefix     = "*"
+    destination_address_prefix= "*"
   }
 }
 # ######################

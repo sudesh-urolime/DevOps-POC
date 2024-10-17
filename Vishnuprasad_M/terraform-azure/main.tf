@@ -3,29 +3,56 @@ resource "azurerm_resource_group" "poc-rg" {
     location = var.location
 }
 
-module "network_security_group" {
-    source = "./modules/network_security_group"
-    vnet_security_group_name = var.vnet_security_group_name
-    location                                 = var.location
-    resource_group_name                      = azurerm_resource_group.poc-rg.name
+# module "network_security_group" {
+#     source = "./modules/network_security_group"
+#     vnet_security_group_name = var.vnet_security_group_name
+#     location                                 = var.location
+#     resource_group_name                      = azurerm_resource_group.poc-rg.name
+# }
+module "public_nsg" {
+  source              = "./modules/network_security_group"
+  name                = var.public_nsg_name
+  location            = var.location
+  resource_group_name = var.rg-name
 }
 
-module "nsg_rules" {
-    source = "./modules/network_security_group_rules"
-    for_each                  = var.nsg_rules
-    vnet_security_group_name                 = var.vnet_security_group_name
-    resource_group_name                      = azurerm_resource_group.poc-rg.name
-    vent_sg_rule_name                        = each.value.name
-    vent_sg_rule_priority                    = each.value.priority
-    vent_sg_rule_direction                   = each.value.direction
-    vent_sg_rule_access                      = each.value.access
-    vent_sg_rule_protocol                    = each.value.protocol
-    vent_sg_rule_source_port_range           = each.value.source_port_range
-    vent_sg_rule_destination_port_range      = each.value.destination_port_range
-    vent_sg_rule_source_address_prefix       = each.value.source_address_prefix
-    vent_sg_rule_destination_address_prefix  = each.value.destination_address_prefix
-    depends_on = [module.network_security_group]
+module "private_nsg" {
+  source              = "./modules/network_security_group"
+  name                = var.private_nsg_name
+  location            = var.location
+  resource_group_name = var.rg-name
 }
+
+module "nsg_rules_public" {
+  source = "./modules/network_security_group_rules"
+  nsg_rules = var.public_nsg_rules
+  resource_group_name         = var.rg-name
+  network_security_group_name = var.public_nsg_name
+}
+
+module "nsg_rules_private" {
+  source = "./modules/network_security_group_rules"
+  nsg_rules = var.private_nsg_rules
+  resource_group_name         = var.rg-name
+  network_security_group_name = var.private_nsg_name
+}
+
+# module "nsg_rules" {
+#     source = "./modules/network_security_group_rules"
+#     for_each                  = var.nsg_rules
+#     vnet_security_group_name                 = var.vnet_security_group_name
+#     resource_group_name                      = azurerm_resource_group.poc-rg.name
+#     vent_sg_rule_name                        = each.value.name
+#     vent_sg_rule_priority                    = each.value.priority
+#     vent_sg_rule_direction                   = each.value.direction
+#     vent_sg_rule_access                      = each.value.access
+#     vent_sg_rule_protocol                    = each.value.protocol
+#     vent_sg_rule_source_port_range           = each.value.source_port_range
+#     vent_sg_rule_destination_port_range      = each.value.destination_port_range
+#     vent_sg_rule_source_address_prefix       = each.value.source_address_prefix
+#     vent_sg_rule_destination_address_prefix  = each.value.destination_address_prefix
+#     depends_on = [module.network_security_group]
+# }
 
 module "vnet" {
   source              = "./modules/vnet"
@@ -36,8 +63,9 @@ module "vnet" {
   subnets             = var.subnets
   vnet_nat_gw_ip_name = var.vnet_nat_gw_ip_name
   vnet_nat_gw_name    = var.vnet_nat_gw_name
-  network_security_group_id_private = module.network_security_group.nsg_id
-  depends_on = [azurerm_resource_group.poc-rg, module.network_security_group]
+  network_security_group_id_private = module.private_nsg.nsg_id
+  network_security_group_id_public = module.public_nsg.nsg_id
+  depends_on = [azurerm_resource_group.poc-rg, module.public_nsg, module.private_nsg]
 }
 
 module "bastion" {

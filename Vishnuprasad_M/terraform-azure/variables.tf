@@ -40,35 +40,44 @@ variable "vnet_nat_gw_name" {
 }
 
 ################NETWORK SECURITY GROUP#################
-# variable "nsg_settings" {
-#   description = "A map containing the NSG settings for each instance"
-#   type = map(object({
-#     vnet_security_group_name = string
-#     location                 = string
-#     resource_group_name      = string
-#   }))
-#   default = {}
+
+# variable "vnet_security_group_name" {
+#     type        = string
+#     default     = ""
+#     description = "security group for vnet"
 # }
 
-variable "vnet_security_group_name" {
-    type        = string
-    default     = ""
-    description = "security group for vnet"
+# variable "nsg_rules" {
+#   description                 = "A map of security rules to be created."
+#   type                        = map(object({
+#     name                      = string
+#     priority                  = number
+#     direction                 = string
+#     access                    = string
+#     protocol                  = string
+#     source_port_range         = string
+#     destination_port_range    = string
+#     source_address_prefix     = string
+#     destination_address_prefix = string
+#   }))
+# }
+variable "public_nsg_name" {
+  description = "Name for the public NSG"
+  type        = string
 }
 
-variable "nsg_rules" {
-  description                 = "A map of security rules to be created."
-  type                        = map(object({
-    name                      = string
-    priority                  = number
-    direction                 = string
-    access                    = string
-    protocol                  = string
-    source_port_range         = string
-    destination_port_range    = string
-    source_address_prefix     = string
-    destination_address_prefix = string
-  }))
+variable "private_nsg_name" {
+  description = "Name for the private NSG"
+  type        = string
+}
+variable "public_nsg_rules" {
+  description = "Rules for the public network security group"
+  type        = map(any)
+}
+
+variable "private_nsg_rules" {
+  description = "Rules for the private network security group"
+  type        = map(any)
 }
 
 ##############BASTION###########

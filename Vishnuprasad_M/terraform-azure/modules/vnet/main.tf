@@ -74,11 +74,11 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assosiation_pr
   subnet_id                 = each.value.id
   network_security_group_id = var.network_security_group_id_private
 }
-# resource "azurerm_subnet_network_security_group_association" "nsg_assosiation_public_subnet" {
-#   for_each = {
-#     for s in azurerm_subnet.subnet : s.name => s
-#     if s.name == "public-subnet"
-#   }
-#   subnet_id                 = each.value.id
-#   network_security_group_id = var.network_security_group_id_public
-# }
+resource "azurerm_subnet_network_security_group_association" "nsg_assosiation_public_subnet" {
+  for_each = {
+    for s in azurerm_subnet.subnet : s.name => s
+    if s.name == "public-subnet"
+  }
+  subnet_id                 = each.value.id
+  network_security_group_id = var.network_security_group_id_public
+}

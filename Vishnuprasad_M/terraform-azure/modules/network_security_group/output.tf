@@ -1,10 +1,19 @@
-output "vnet_security_group_name" {
-  description = "The name of the created network security group."
-  value       = azurerm_network_security_group.vnet_security_group.name
-}
+# output "vnet_security_group_name" {
+#   description = "The name of the created network security group."
+#   value       = azurerm_network_security_group.vnet_security_group.name
+# }
+# output "nsg_id" {
+#   description = "The ID of the Network Security Group"
+#   value       = azurerm_network_security_group.vnet_security_group.id
+# }
 output "nsg_id" {
-  description = "The ID of the Network Security Group"
-  value       = azurerm_network_security_group.vnet_security_group.id
+  value       = azurerm_network_security_group.nsg.id
+  description = "The ID of the network security group."
+}
+
+output "nsg_name" {
+  value       = azurerm_network_security_group.nsg.name
+  description = "The name of the network security group."
 }
 
 # output "nsg_ids" {

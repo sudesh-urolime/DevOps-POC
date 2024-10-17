@@ -41,7 +41,7 @@ variable "network_security_group_id_private" {
     type = string
     description = "private network security group id"
 }
-# variable "network_security_group_id_public" {
-#     type = string
-#     description = "public network security group id"
-# }
+variable "network_security_group_id_public" {
+    type = string
+    description = "public network security group id"
+}
