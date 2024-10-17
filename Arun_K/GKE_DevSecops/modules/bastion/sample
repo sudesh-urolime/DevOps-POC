@@ -1,0 +1,38 @@
+# Define the variables for network and subnets that are passed from the root module
+variable "vpc_network_name" {
+  description = "VPC network name from the VPC module"
+  type        = string
+}
+
+variable "subnet_self_links" {
+  description = "Subnetwork self-links from the VPC module"
+  type        = list(object({
+    id        = string
+    self_link = string
+  }))
+}
+
+resource "google_compute_instance" "bastion_vm" {
+  name         = var.vm_name
+  machine_type = var.machine_type
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = var.vm_image
+    }
+  }
+
+  network_interface {
+    network    = var.vpc_network_name  # Use the VPC network name passed from the root module
+    subnetwork = var.subnet_self_links[1].self_link  # Automatically select subnet-2
+    access_config {}
+  }
+
+  service_account {
+    email  = var.service_account_email
+    scopes = ["cloud-platform"]
+  }
+
+  tags = ["bastion"]
+}
