@@ -9,20 +9,12 @@ variable "location" {
   type        = string
 }
 
-variable "secret_name" {
-  description = "The name of the Key Vault secret."
-  type        = string
-}
 
 variable "resource_group_name" {
   description = "The name of the resource group where the Key Vault will be created."
   type        = string
 }
 
-variable "admin_password" {
-  description = "The admin password for the jump host that will be stored in the Key Vault."
-  type        = string
-}
 
 variable "soft_delete_retention_days" {
   description = "The number of days to retain deleted vault items."

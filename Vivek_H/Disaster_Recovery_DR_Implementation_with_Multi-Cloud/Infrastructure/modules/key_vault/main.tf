@@ -19,8 +19,5 @@ resource "azurerm_key_vault" "main" {
   }
 }
 
-resource "azurerm_key_vault_secret" "main" {
-  name         = var.secret_name
-  value        = var.admin_password
-  key_vault_id = azurerm_key_vault.main.id
-}
+
+

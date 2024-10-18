@@ -34,6 +34,29 @@ variable "secret_name" {
   type        = string
 }
 
+variable "cosmos_secret_name" {
+  description = "The name of the Key Vault secret."
+  type        = string
+}
+
+variable "network_interface_name" {
+  description = "Network interface name"
+  type        = string
+
+}
+
+variable "cosmosdb_account_name" {
+  description = "Name of the Cosmos DB account."
+}
+
+variable "mongo_database_name" {
+  description = "Name of the MongoDB database in Cosmos DB."
+}
+
+variable "mongo_collection_name" {
+  description = "Name of the MongoDB collection in Cosmos DB."
+}
+
 variable "aks_name" {
   description = "The name of the Azure Kubernetes Service (AKS) cluster."
   type        = string
@@ -53,7 +76,6 @@ variable "tenant_id" {
   description = "The tenant ID for the Azure subscription."
   type        = string
 }
-
 
 variable "vm_size" {
   description = "The size of the virtual machine for the AKS cluster nodes."

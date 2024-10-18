@@ -10,13 +10,13 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "public_subnet_id" {
-  description = "The ID of the public subnet for the Jump Host."
-  type        = string
-}
 
 variable "admin_password" {
   description = "The admin password for the Jump Host."
   type        = string
 }
 
+variable "net_interface_id" {
+  description = "The admin password for the Jump Host."
+  type        = string
+}

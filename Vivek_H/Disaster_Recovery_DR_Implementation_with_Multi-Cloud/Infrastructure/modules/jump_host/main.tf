@@ -1,22 +1,9 @@
-# Create a network interface for the Jump Host
-resource "azurerm_network_interface" "jump_host_nic" {
-  name                = "jump-host-nic"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = var.public_subnet_id
-    private_ip_address_allocation = "Dynamic"
-  }
-}
-
 # Create a virtual machine for the Jump Host
 resource "azurerm_virtual_machine" "jump_host" {
   name                  = "jump-host"
   location              = var.location
   resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.jump_host_nic.id]
+  network_interface_ids = [var.net_interface_id]
   vm_size               = "Standard_B2s"
 
   storage_os_disk {

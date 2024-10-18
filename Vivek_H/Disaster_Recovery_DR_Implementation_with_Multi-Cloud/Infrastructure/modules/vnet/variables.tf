@@ -28,3 +28,14 @@ variable "private_subnet_prefix" {
   description = "The address prefix for the private subnet."
   type        = string
 }
+
+variable "public_ip" {
+  description = "The public IP ID for the network interface."
+  type        = string
+}
+
+variable "network_interface_name" {
+  description = "Network interface name"
+  type        = string
+
+}
