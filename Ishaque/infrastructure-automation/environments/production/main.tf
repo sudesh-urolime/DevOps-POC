@@ -1,11 +1,19 @@
 module "vpc" {
-  source                     = "../../modules/vpc"
-  vpc_name                   = "production-vpc"
-  cidr_block                 = "10.0.0.0/16"
-  environment                = "prod"
-  public_subnet_count        = 2
-  public_subnets_cidr_blocks = ["10.0.1.0/24", "10.0.2.0/24"]
-  azs                        = ["us-east-1a", "us-east-1b"]
+  source                      = "../../modules/vpc"
+  vpc_name                    = "production-vpc"
+  cidr_block                  = "10.0.0.0/16"
+  enable_dns_support          = "true"
+  environment                 = "prod"
+  public_subnet_count         = 2
+  private_subnet_count        = 2
+  public_subnets_cidr_blocks  = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets_cidr_blocks = ["10.0.3.0/24", "10.0.4.0/24"]
+  azs                         = ["us-east-1a", "us-east-1b"]
+  map_public_ip_on_launch     = "true"
+  igw_name                    = "prod-igw"
+  nat_name                    = "prod-nat"
+  pub_rt_name                 = "prod-public-rt"
+  prvt_rt_name                = "prod-private-rt"
 }
 
 module "ec2" {
@@ -14,5 +22,28 @@ module "ec2" {
   instance_type = "t2.nano"
   subnet_id     = element(module.vpc.public_subnet_ids, 0)
   environment   = "prod"
+  depends_on    = [module.vpc]
 }
+
+module "iam" {
+  source                  = "../../modules/iam"
+  ecs_task_execution_role = "ecsTaskExecutionRole"
+}
+
+module "route53" {
+  source      = "../../modules/route53"
+  domain_name = "dopeops.cloud"
+}
+
+module "certs" {
+  source      = "../../modules/certs"
+  domain_name = "dopeops.cloud"
+  environment = "prod"
+}
+
+module "ecr" {
+  source   = "../../modules/ecr"
+  ecr_repo = "prod-ecr-repo"
+}
+
 
