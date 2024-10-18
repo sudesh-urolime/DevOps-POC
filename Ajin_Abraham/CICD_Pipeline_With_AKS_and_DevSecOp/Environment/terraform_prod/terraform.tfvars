@@ -19,3 +19,4 @@ pubip_name                    = "pubip_test"
 allocation_method             = "Dynamic"
 #ip_name                       ="internal"  
 storage_mb                     = 51200
+log_analytics_workspace_name   = log-analytics-workspace

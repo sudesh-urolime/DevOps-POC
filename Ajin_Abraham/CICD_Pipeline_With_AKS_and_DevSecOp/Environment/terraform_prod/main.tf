@@ -92,22 +92,14 @@ module "bastion" {
   location              = var.location
   acr_subnet_id           =    module.vnet.acr_subnet_id
   }
-#------------------------------------------------------------------
-# mysql creation
-#-------------------------------------------------------------------
-module "mysql_server" {
-  source = "../module/mysql"
-  mysql_server_name        = "my-flexible-mysql"
-  resource_group_name       = var.resource_group_name
-  admin_username            = "mysqladmin"
-  admin_password           = "MyStrongPassword123!"
-  sku_name                 = "Standard_B1ms"
-  mysql_version            = "8.0"
-  storage_mb               = var.storage_mb
-  backup_retention_days     = 7
-  geo_redundant_backup_enabled = false
-  location                 = var.location
-  storage_subnet_id        = module.vnet.storage_subnet_id
-  environment               = "Development"
+#------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+module "aks_monitoring" {
+  source = "../module/monitor"  # Or use a remote source such as a GitHub repository
+
+  log_analytics_workspace_name = var.log_analytics_workspace_name                               #"log-analytics-workspace"
+  resource_group_name          = var.resource_group_name
+  location                     = var.location
+  aks_cluster_name              = "test"
 }
 

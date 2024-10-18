@@ -84,3 +84,7 @@ variable "allocation_method" {
 variable "storage_mb" {
   type = number
 }
+
+variable"log_analytics_workspace_name"{
+  type = string
+}
