@@ -276,3 +276,7 @@ node_pool_type            = "VirtualMachineScaleSets"
 node_pool_os              = "linux"
 network_plugin            = "azure"
 load_balancer_sku         = "standard"
+#######ACR#######
+acr_name = "AcrDrPoc"
+acr_sku = "Basic"
+acr_admin_enabled = "true"

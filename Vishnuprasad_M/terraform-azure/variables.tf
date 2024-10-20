@@ -216,3 +216,19 @@ variable "load_balancer_sku" {
   type = string
   default = ""
 }
+##############ACR#############
+variable "acr_name" {
+    type = string
+    description = "name for acr"
+    default = "" 
+}
+variable "acr_sku" {
+    type = string
+    description = "sku used for acr"
+    default = "" 
+}
+variable "acr_admin_enabled" {
+    type = string
+    description = "admin enabled for acr"
+    default = "" 
+}

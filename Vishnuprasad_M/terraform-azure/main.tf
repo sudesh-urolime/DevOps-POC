@@ -90,4 +90,12 @@ module "aks" {
   load_balancer_sku         = var.load_balancer_sku
   depends_on                = [ module.vnet ] 
 }
+module "acr" {
+  source = "./modules/acr"
+  name                = var.acr_name
+  location            = var.location
+  resource_group_name = var.rg-name
+  sku                 = var.acr_sku
+  admin_enabled       = var.acr_admin_enabled
+}
 
