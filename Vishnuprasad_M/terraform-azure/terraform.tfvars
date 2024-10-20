@@ -1,5 +1,5 @@
 rg-name  = "poc-azure-aws-dr-rg"
-location =  "centralindia" #"eastus"
+location = "centralindia" #"eastus"
 #####################
 # nsg_settings = {
 #   "nsg1" = {
@@ -158,56 +158,56 @@ location =  "centralindia" #"eastus"
 #     destination_address_prefix = "*"
 #   }
 # }
-public_nsg_name    = "public-nsg"
-private_nsg_name   = "private-nsg"
+public_nsg_name  = "public-nsg"
+private_nsg_name = "private-nsg"
 
 public_nsg_rules = {
   "rule1" = {
-    name                      = "allow_https"
-    priority                  = 100
-    direction                 = "Inbound"
-    access                    = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "443"
-    source_address_prefix     = "*"
-    destination_address_prefix= "*"
+    name                       = "allow_https"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   },
   "rule2" = {
-    name                      = "allow_ssh"
-    priority                  = 110
-    direction                 = "Inbound"
-    access                    = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "22"
-    source_address_prefix     = "*"
-    destination_address_prefix= "*"
+    name                       = "allow_ssh"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
 }
 
 private_nsg_rules = {
   "rule1" = {
-    name                      = "allow_all_outbound"
-    priority                  = 120
-    direction                 = "Outbound"
-    access                    = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "*"
-    source_address_prefix     = "*"
-    destination_address_prefix= "*"
+    name                       = "allow_all_outbound"
+    priority                   = 120
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
   "rule2" = {
-    name                      = "allow_alltraffic"
-    priority                  = 110
-    direction                 = "Inbound"
-    access                    = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "*"
-    source_address_prefix     = "*"
-    destination_address_prefix= "*"
+    name                       = "allow_alltraffic"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
 }
 # ######################
@@ -219,16 +219,16 @@ vnet_nat_gw_name    = "poc_vnet_gw"
 
 subnets = [
   {
-    name                   = "public-subnet"
-    address_prefixes       = ["192.168.0.0/17"]
+    name                    = "public-subnet"
+    address_prefixes        = ["192.168.0.0/17"]
     private_endpoint_status = "Disabled"
-    nat_gateway_enabled    = false
+    nat_gateway_enabled     = false
   },
   {
-    name                   = "private-subnet"
-    address_prefixes       = ["192.168.128.0/17"]
+    name                    = "private-subnet"
+    address_prefixes        = ["192.168.128.0/17"]
     private_endpoint_status = "Enabled"
-    nat_gateway_enabled    = true
+    nat_gateway_enabled     = true
   }
 ]
 ######BASTION######
@@ -246,20 +246,20 @@ subnets = [
 # source_image_reference_publisher      = "Canonical"
 # source_image_reference_sku            = "18_04-lts-gen2"
 # source_image_reference_version        = "18.04.202205270"
-bastion_network_interface_name        = "bastion_network_interface"
-bastion_ip_config_name                = "bastion_ip_config"
-bastion_name                          = "bastion"
-bastion_size                          = "Standard_B2s"
-bastion_user_name                     = "vishnu"
-os_disk_caching                       = "ReadWrite"
-os_disk_name                          = "os_disk_bastion"
-os_disk_storage_account_type          = "Standard_LRS"
-pvt_ip_allocation_net_int             = "Dynamic"
-disable_password_authentication       = "true"
-source_image_reference_offer          = "0001-com-ubuntu-server-jammy"
-source_image_reference_publisher      = "Canonical"
-source_image_reference_sku            = "22_04-lts"
-source_image_reference_version        = "latest"
+bastion_network_interface_name   = "bastion_network_interface"
+bastion_ip_config_name           = "bastion_ip_config"
+bastion_name                     = "bastion"
+bastion_size                     = "Standard_B2s"
+bastion_user_name                = "vishnu"
+os_disk_caching                  = "ReadWrite"
+os_disk_name                     = "os_disk_bastion"
+os_disk_storage_account_type     = "Standard_LRS"
+pvt_ip_allocation_net_int        = "Dynamic"
+disable_password_authentication  = "true"
+source_image_reference_offer     = "0001-com-ubuntu-server-jammy"
+source_image_reference_publisher = "Canonical"
+source_image_reference_sku       = "22_04-lts"
+source_image_reference_version   = "latest"
 
 ###############AKS############
 aks_name                  = "private-aks-cluster"
@@ -277,6 +277,12 @@ node_pool_os              = "linux"
 network_plugin            = "azure"
 load_balancer_sku         = "standard"
 #######ACR#######
-acr_name = "AcrDrPoc"
-acr_sku = "Basic"
+acr_name          = "AcrDrPoc"
+acr_sku           = "Basic"
 acr_admin_enabled = "true"
+##########COSMOSDB#########
+cosmosdb_name                       = "poc-db-azure1121"
+cosmosdb_offer_type                 = "Standard"
+cosmosdb_kind                       = "GlobalDocumentDB"
+cosmosdb_automatic_failover_enabled = "false"
+cosmosdb_consistency_level          = "BoundedStaleness"

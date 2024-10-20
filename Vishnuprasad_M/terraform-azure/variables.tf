@@ -1,27 +1,27 @@
 ############RESOURCE GROUP############
 variable "rg-name" {
-    type        = string
-    description = "resource group name"
+  type        = string
+  description = "resource group name"
 }
 variable "location" {
-    type    = string
-    default = ""
-  
+  type    = string
+  default = ""
+
 }
 ################VNET#####################
 variable "vnet_name" {
-    type        = string
-    default     = ""
-    description = "vnet name"
+  type        = string
+  default     = ""
+  description = "vnet name"
 }
 variable "vnet_cidr" {
-    type        = string
-    default     = ""
-    description = "vnet cidr for azure"
+  type        = string
+  default     = ""
+  description = "vnet cidr for azure"
 }
 variable "subnets" {
-  description               = "List of subnets with configurations"
-  type                      = list(object({
+  description = "List of subnets with configurations"
+  type = list(object({
     name                    = string
     address_prefixes        = list(string)
     private_endpoint_status = string // "Enabled", "Disabled", or "null"
@@ -29,14 +29,14 @@ variable "subnets" {
   }))
 }
 variable "vnet_nat_gw_ip_name" {
-    type        = string
-    default     = ""
-    description = "vnet nat gateway ip name"
+  type        = string
+  default     = ""
+  description = "vnet nat gateway ip name"
 }
 variable "vnet_nat_gw_name" {
-    type        = string
-    default     = ""
-    description = "vnet nat gateway name" 
+  type        = string
+  default     = ""
+  description = "vnet nat gateway name"
 }
 
 ################NETWORK SECURITY GROUP#################
@@ -82,7 +82,7 @@ variable "private_nsg_rules" {
 
 ##############BASTION###########
 variable "pvt_ip_allocation_net_int" {
-  type = string
+  type        = string
   description = "private ip address allocation Enabled/Disabled"
 }
 # variable "public_subnet_id" {
@@ -90,145 +90,171 @@ variable "pvt_ip_allocation_net_int" {
 #   description = "public subnet id for the instance"
 # }
 variable "bastion_ip_config_name" {
-  type = string
+  type        = string
   description = "name for bastion_ip_config"
 }
 variable "bastion_network_interface_name" {
-  type = string
+  type        = string
   description = "name for bastion_network_interface"
 }
 variable "bastion_name" {
-  type = string
+  type        = string
   description = "bastion name"
 }
 variable "bastion_size" {
-  type = string
+  type        = string
   description = "bastion machine size"
 }
 variable "os_disk_name" {
-  type = string
+  type        = string
   description = "os_disk_name"
 }
 variable "os_disk_caching" {
-  type = string
+  type        = string
   description = "os_disk_caching"
 }
 variable "os_disk_storage_account_type" {
-  type = string
+  type        = string
   description = "os_disk_storage_account_type"
 }
 variable "source_image_reference_publisher" {
-  type = string
+  type        = string
   description = "source_image_reference_publisher"
 }
 variable "source_image_reference_offer" {
-  type = string
+  type        = string
   description = "source_image_reference_offer"
 }
 variable "source_image_reference_sku" {
-  type = string
+  type        = string
   description = "source_image_reference_sku"
 }
 variable "source_image_reference_version" {
-  type = string
+  type        = string
   description = "source_image_reference_version"
 }
 variable "bastion_user_name" {
-  type = string
+  type        = string
   description = "bastion_user_name"
 }
 variable "disable_password_authentication" {
-  type = string
+  type        = string
   description = "disable_password_authentication"
 }
 ####################AKS#####################
 variable "aks_name" {
   description = "name for the aks cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "kubernetes_version" {
   description = "kubernetes verion used"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "dns_prefix" {
   description = "dns prefix for the cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "default_node_pool_name" {
   description = "default node pool name"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "default_node_pool_vm_size" {
   description = "default node pool vm size of the cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "node_pool_zones" {
   description = "default node pool zone"
-  type = list(number)
+  type        = list(number)
 }
 variable "enable_auto_scaling" {
-    type = string
-    description = "enable auto scaling of the nodes"
-    default = ""
+  type        = string
+  description = "enable auto scaling of the nodes"
+  default     = ""
 }
 variable "max_node_count" {
-  type = string
+  type        = string
   description = "maximum node count"
-  default = ""
+  default     = ""
 }
 variable "min_node_count" {
-  type = string
+  type        = string
   description = "minimum count of nodes"
-  default = ""
+  default     = ""
 }
 variable "os_disk_size_gb" {
   description = "os disk size needed"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "aks_subnet_id" {
   description = "subnet id for the cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "node_pool_type" {
   description = "node pool type used"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "node_pool_os" {
   description = "value"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "network_plugin" {
   description = "network plugin used"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "load_balancer_sku" {
   description = "loadbalancer sku"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 ##############ACR#############
 variable "acr_name" {
-    type = string
-    description = "name for acr"
-    default = "" 
+  type        = string
+  description = "name for acr"
+  default     = ""
 }
 variable "acr_sku" {
-    type = string
-    description = "sku used for acr"
-    default = "" 
+  type        = string
+  description = "sku used for acr"
+  default     = ""
 }
 variable "acr_admin_enabled" {
-    type = string
-    description = "admin enabled for acr"
-    default = "" 
+  type        = string
+  description = "admin enabled for acr"
+  default     = ""
+}
+###########COSMOSDB##############
+variable "cosmosdb_name" {
+  type        = string
+  description = "cosmosdb account name"
+  default     = ""
+}
+variable "cosmosdb_offer_type" {
+  type        = string
+  description = "offer type for cosmosdb"
+  default     = ""
+}
+variable "cosmosdb_kind" {
+  type        = string
+  description = "kind of cosmosdb"
+  default     = ""
+}
+variable "cosmosdb_automatic_failover_enabled" {
+  type        = string
+  description = "automatic failover details"
+  default     = ""
+}
+variable "cosmosdb_consistency_level" {
+  type        = string
+  description = "consistency level for cosmosdb"
+  default     = ""
 }

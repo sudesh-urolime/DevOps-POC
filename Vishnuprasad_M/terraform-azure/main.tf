@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "poc-rg" {
-    name     = var.rg-name
-    location = var.location
+  name     = var.rg-name
+  location = var.location
 }
 
 module "public_nsg" {
@@ -22,7 +22,7 @@ module "nsg_rules_public" {
   nsg_rules                   = var.public_nsg_rules
   resource_group_name         = var.rg-name
   network_security_group_name = var.public_nsg_name
-  depends_on                  = [ module.public_nsg ]
+  depends_on                  = [module.public_nsg]
 }
 
 module "nsg_rules_private" {
@@ -30,7 +30,7 @@ module "nsg_rules_private" {
   nsg_rules                   = var.private_nsg_rules
   resource_group_name         = var.rg-name
   network_security_group_name = var.private_nsg_name
-  depends_on                  = [ module.private_nsg ]
+  depends_on                  = [module.private_nsg]
 }
 
 module "vnet" {
@@ -58,20 +58,20 @@ module "bastion" {
   os_disk_caching                  = var.os_disk_caching
   os_disk_name                     = var.os_disk_name
   os_disk_storage_account_type     = var.os_disk_storage_account_type
-  public_subnet_id                 =  module.vnet.public_subnet_id
-  pvt_ip_allocation_net_int        =  var.pvt_ip_allocation_net_int
-  disable_password_authentication  =  var.disable_password_authentication
-  source_image_reference_offer     =  var.source_image_reference_offer
-  source_image_reference_publisher =  var.source_image_reference_publisher
-  source_image_reference_sku       =  var.source_image_reference_sku
-  source_image_reference_version   =  var.source_image_reference_version
+  public_subnet_id                 = module.vnet.public_subnet_id
+  pvt_ip_allocation_net_int        = var.pvt_ip_allocation_net_int
+  disable_password_authentication  = var.disable_password_authentication
+  source_image_reference_offer     = var.source_image_reference_offer
+  source_image_reference_publisher = var.source_image_reference_publisher
+  source_image_reference_sku       = var.source_image_reference_sku
+  source_image_reference_version   = var.source_image_reference_version
   location                         = var.location
-  depends_on                       = [ module.vnet ]
+  depends_on                       = [module.vnet]
 }
 
 module "aks" {
   source                    = "./modules/aks"
-  name                      = var.aks_name                  
+  name                      = var.aks_name
   location                  = var.location
   resource_group_name       = var.rg-name
   dns_prefix                = var.dns_prefix
@@ -88,14 +88,25 @@ module "aks" {
   node_pool_os              = var.node_pool_os
   network_plugin            = var.network_plugin
   load_balancer_sku         = var.load_balancer_sku
-  depends_on                = [ module.vnet ] 
+  depends_on                = [module.vnet]
 }
 module "acr" {
-  source = "./modules/acr"
+  source              = "./modules/acr"
   name                = var.acr_name
   location            = var.location
   resource_group_name = var.rg-name
   sku                 = var.acr_sku
   admin_enabled       = var.acr_admin_enabled
+}
+
+module "cosmosdb" {
+  source                     = "./modules/cosmos_db"
+  name                       = var.cosmosdb_name
+  location                   = var.location
+  resource_group_name        = var.rg-name
+  offer_type                 = var.cosmosdb_offer_type
+  kind                       = var.cosmosdb_kind
+  automatic_failover_enabled = var.cosmosdb_automatic_failover_enabled
+  consistency_level          = var.cosmosdb_consistency_level
 }
 
