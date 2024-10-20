@@ -5,7 +5,7 @@ variable "rg-name" {
 }
 variable "location" {
     type    = string
-    default = "eastus"
+    default = ""
   
 }
 ################VNET#####################
@@ -141,75 +141,78 @@ variable "disable_password_authentication" {
   type = string
   description = "disable_password_authentication"
 }
-########################
-
-
-# variable "nsg_rules" {
-#   description = "A map of NSG rules for each network security group"
-#   type = map(object({
-#     rules = map(object({
-#       priority                    = number
-#       direction                   = string
-#       access                      = string
-#       protocol                    = string
-#       source_port_range           = string
-#       destination_port_range      = string
-#       source_address_prefix       = string
-#       destination_address_prefix  = string
-#     }))
-#   }))
-#   default = {}
-# }
-
-############
-# variable "vent_sg_rule_name" {
-#   description = "The name of the network security rule."
-#   type        = string
-# }
-
-# variable "vent_sg_rule_priority" {
-#   description = "The priority of the rule."
-#   type        = number
-# }
-
-# variable "vent_sg_rule_direction" {
-#   description = "The direction of the rule (Inbound/Outbound)."
-#   type        = string
-#   default     = "Outbound"
-# }
-
-# variable "vent_sg_rule_access" {
-#   description = "The access type of the rule (Allow/Deny)."
-#   type        = string
-#   default     = "Allow"
-# }
-
-# variable "vent_sg_rule_protocol" {
-#   description = "The protocol of the rule (Tcp/Udp/Asterisk)."
-#   type        = string
-#   default     = "Tcp"
-# }
-
-# variable "vent_sg_rule_source_port_range" {
-#   description = "The source port range."
-#   type        = string
-#   default     = "*"
-# }
-
-# variable "vent_sg_rule_destination_port_range" {
-#   description = "The destination port range."
-#   type        = string
-#   default     = "*"
-# }
-
-# variable "vent_sg_rule_source_address_prefix" {
-#   description = "The source address prefix."
-#   type        = string
-#   default     = "*"
-# }
-
-# variable "vent_sg_rule_destination_address_prefix" {
-#   description = "The destination address prefix."
-#   type        = string
-#   default     = "*"
-# }
+####################AKS#####################
+variable "aks_name" {
+  description = "name for the aks cluster"
+  type = string
+  default = ""
+}
+variable "kubernetes_version" {
+  description = "kubernetes verion used"
+  type = string
+  default = ""
+}
+variable "dns_prefix" {
+  description = "dns prefix for the cluster"
+  type = string
+  default = ""
+}
+variable "default_node_pool_name" {
+  description = "default node pool name"
+  type = string
+  default = ""
+}
+variable "default_node_pool_vm_size" {
+  description = "default node pool vm size of the cluster"
+  type = string
+  default = ""
+}
+variable "node_pool_zones" {
+  description = "default node pool zone"
+  type = list(number)
+}
+variable "enable_auto_scaling" {
+    type = string
+    description = "enable auto scaling of the nodes"
+    default = ""
+}
+variable "max_node_count" {
+  type = string
+  description = "maximum node count"
+  default = ""
+}
+variable "min_node_count" {
+  type = string
+  description = "minimum count of nodes"
+  default = ""
+}
+variable "os_disk_size_gb" {
+  description = "os disk size needed"
+  type = string
+  default = ""
+}
+variable "aks_subnet_id" {
+  description = "subnet id for the cluster"
+  type = string
+  default = ""
+}
+variable "node_pool_type" {
+  description = "node pool type used"
+  type = string
+  default = ""
+}
+variable "node_pool_os" {
+  description = "value"
+  type = string
+  default = ""
+}
+variable "network_plugin" {
+  description = "network plugin used"
+  type = string
+  default = ""
+}
+variable "load_balancer_sku" {
+  description = "loadbalancer sku"
+  type = string
+  default = ""
+}

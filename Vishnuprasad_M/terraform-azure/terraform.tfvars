@@ -188,10 +188,21 @@ public_nsg_rules = {
 
 private_nsg_rules = {
   "rule1" = {
-    name                      = "deny_all_outbound"
+    name                      = "allow_all_outbound"
     priority                  = 120
     direction                 = "Outbound"
-    access                    = "Deny"
+    access                    = "Allow"
+    protocol                  = "Tcp"
+    source_port_range         = "*"
+    destination_port_range    = "*"
+    source_address_prefix     = "*"
+    destination_address_prefix= "*"
+  }
+  "rule2" = {
+    name                      = "allow_alltraffic"
+    priority                  = 110
+    direction                 = "Inbound"
+    access                    = "Allow"
     protocol                  = "Tcp"
     source_port_range         = "*"
     destination_port_range    = "*"
@@ -249,3 +260,19 @@ source_image_reference_offer          = "0001-com-ubuntu-server-jammy"
 source_image_reference_publisher      = "Canonical"
 source_image_reference_sku            = "22_04-lts"
 source_image_reference_version        = "latest"
+
+###############AKS############
+aks_name                  = "private-aks-cluster"
+dns_prefix                = "private-aks-cluster-poc"
+kubernetes_version        = "1.29.8"
+default_node_pool_name    = "default"
+default_node_pool_vm_size = "Standard_DS2_v2" #"Standard_D2pls_v5" #"Standard_B2s"
+node_pool_zones           = [1, 2, 3]
+enable_auto_scaling       = "true"
+max_node_count            = "2"
+min_node_count            = "1"
+os_disk_size_gb           = "30"
+node_pool_type            = "VirtualMachineScaleSets"
+node_pool_os              = "linux"
+network_plugin            = "azure"
+load_balancer_sku         = "standard"
