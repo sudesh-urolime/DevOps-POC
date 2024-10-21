@@ -1,2 +1,4 @@
 **/.terraform/
 ./Vishnuprasad_M/terraform-azure/.terraform*
+./Vishnuprasad_M/terraform-azure/terraform.tfvars
+./Vishnuprasad_M/terraform-azure/modules/bastion/bastion*
