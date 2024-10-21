@@ -115,3 +115,8 @@ variable "client_secret" {
   type = string
   
 }
+
+variable "uniqueKey" {
+  description = "Unique key value"
+  type = string
+}

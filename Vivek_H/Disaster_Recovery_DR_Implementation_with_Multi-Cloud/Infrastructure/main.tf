@@ -68,6 +68,7 @@ module "cosmosdb" {
   mongo_database_name  = var.mongo_database_name
   mongo_collection_name = var.mongo_collection_name
   location            = module.resource_group.location
+  uniqueKey           = var.uniqueKey
   resource_group_name = module.resource_group.name
   private_subnet_id   = module.vnet.private_subnet_id
 }
@@ -110,7 +111,7 @@ module "jumb_host_key_vault_secret" {
 module "cosmosdb_key_vault_secret" {
   source = "./modules/key_vault_secret"
   secret_name = var.cosmos_secret_name
-  secret_value = module.cosmosdb.cosmosdb_private_endpoint_id
+  secret_value = var.uniqueKey
   key_vault_id = module.key_vault.key_vault_id
 }
 

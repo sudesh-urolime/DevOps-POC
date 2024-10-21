@@ -24,3 +24,8 @@ variable "private_subnet_id" {
   description = "The ID of the private subnet for the AKS cluster."
   type        = string
 }
+
+variable "uniqueKey" {
+  description = "Unique key value"
+  type = string
+}
