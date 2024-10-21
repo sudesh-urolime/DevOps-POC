@@ -22,4 +22,10 @@ allocation_method     = "Dynamic"
 # storage_mb                  = 51200
  vm_size = "Standard_DC1ds_v3"
  
- 
+
+
+###################ACR#################################
+
+  acr_name = "furnitureacr"
+  
+#######################################################

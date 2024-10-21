@@ -88,3 +88,17 @@ variable "vm_size" {
 # variable "storage_subnet_id" {
 #   type = string
 # }
+
+
+#############ACR##################
+variable "acr_name" {
+  type = string
+}
+
+# variable "resource_group_name" {
+#   type = string
+# }
+
+# variable "location" {
+#   type = string
+# }

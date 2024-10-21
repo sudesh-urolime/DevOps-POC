@@ -38,3 +38,12 @@ module "bastion" {
   storage_subnet_id = module.vnet.storage_subnet_id
   vm_size = var.vm_size
 } 
+
+###########################ACR######################
+
+  module "ACR" {
+    source              = "../modules/ACR"
+    acr_name = var.acr_name
+    resource_group_name = var.resource_group_name
+    location            = var.location
+  }
