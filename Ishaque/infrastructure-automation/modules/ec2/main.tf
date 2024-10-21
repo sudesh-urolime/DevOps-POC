@@ -4,6 +4,7 @@ resource "aws_instance" "bastion" {
   subnet_id     = var.subnet_id
 
   #  depends_on = [module.vpc]
+  vpc_security_group_ids = var.security_groups
 
   tags = {
     Name        = "${var.environment}-bastion"

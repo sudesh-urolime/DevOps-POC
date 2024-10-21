@@ -23,6 +23,7 @@ module "ec2" {
   subnet_id     = element(module.vpc.public_subnet_ids, 0)
   environment   = "prod"
   depends_on    = [module.vpc]
+  security_groups = [module.security-groups.ec2_sec_grp]
 }
 
 module "iam" {
@@ -46,4 +47,7 @@ module "ecr" {
   ecr_repo = "prod-ecr-repo"
 }
 
-
+module "security-groups" {
+  source = "../../modules/security-groups"
+  vpc_id = module.vpc.vpc_id
+}

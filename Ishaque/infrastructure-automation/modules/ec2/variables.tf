@@ -18,3 +18,7 @@ variable "environment" {
   type        = string
 }
 
+variable "security_groups" {
+  description = "Bastion server security group"
+  type        = list(any)
+}
