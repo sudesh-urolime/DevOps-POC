@@ -6,7 +6,7 @@ variable "rg-name" {
 variable "location" {
   type    = string
   default = ""
-
+  description = "location used"
 }
 ################VNET#####################
 variable "vnet_name" {
@@ -40,27 +40,6 @@ variable "vnet_nat_gw_name" {
 }
 
 ################NETWORK SECURITY GROUP#################
-
-# variable "vnet_security_group_name" {
-#     type        = string
-#     default     = ""
-#     description = "security group for vnet"
-# }
-
-# variable "nsg_rules" {
-#   description                 = "A map of security rules to be created."
-#   type                        = map(object({
-#     name                      = string
-#     priority                  = number
-#     direction                 = string
-#     access                    = string
-#     protocol                  = string
-#     source_port_range         = string
-#     destination_port_range    = string
-#     source_address_prefix     = string
-#     destination_address_prefix = string
-#   }))
-# }
 variable "public_nsg_name" {
   description = "Name for the public NSG"
   type        = string
@@ -85,10 +64,6 @@ variable "pvt_ip_allocation_net_int" {
   type        = string
   description = "private ip address allocation Enabled/Disabled"
 }
-# variable "public_subnet_id" {
-#   type = string
-#   description = "public subnet id for the instance"
-# }
 variable "bastion_ip_config_name" {
   type        = string
   description = "name for bastion_ip_config"
@@ -141,6 +116,7 @@ variable "disable_password_authentication" {
   type        = string
   description = "disable_password_authentication"
 }
+
 ####################AKS#####################
 variable "aks_name" {
   description = "name for the aks cluster"
@@ -216,6 +192,7 @@ variable "load_balancer_sku" {
   type        = string
   default     = ""
 }
+
 ##############ACR#############
 variable "acr_name" {
   type        = string
@@ -232,6 +209,7 @@ variable "acr_admin_enabled" {
   description = "admin enabled for acr"
   default     = ""
 }
+
 ###########COSMOSDB##############
 variable "cosmosdb_name" {
   type        = string

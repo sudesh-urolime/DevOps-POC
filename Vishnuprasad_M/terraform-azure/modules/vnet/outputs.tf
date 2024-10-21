@@ -52,33 +52,9 @@ output "nat_gateway_public_ip_association_id" {
   value       = azurerm_nat_gateway_public_ip_association.vnet_nat_gw_ip_association.id
 }
 
-# Output for Subnet NAT Gateway Associations
-# output "subnet_nat_gateway_association_ids" {
-#   description = "The IDs of the NAT Gateway associations with subnets"
-#   value       = { for s in azurerm_subnet_nat_gateway_association.subnet_nat_gw_assoc : s.key => s.id }
-# }
-
 output "private_subnet_nsg_association_ids" {
   value = {
     for key, assoc in azurerm_subnet_network_security_group_association.nsg_assosiation_private_subnet : key => assoc.id
   }
   description = "The IDs of the NSG associations for private subnets"
 }
-
-# output "subnet_nsg_association_ids" {
-#   value = azurerm_subnet_network_security_group_association.nsg_assosiation_private_subnet.id
-#   description = "The IDs of the Network Security Group associations with subnets"
-# }
-
-# Output for Subnet Network Security Group Association
-# output "subnet_nsg_association_ids" {
-#   description = "The IDs of the Network Security Group associations with subnets"
-#   value       = { for s in azurerm_subnet_network_security_group_association.nsg_assosiation_subnet : s.key => s.id }
-# }
-# output "subnet_nsg_association_ids" {
-#   value = {
-#     private = [for assoc in azurerm_subnet_network_security_group_association.nsg_assosiation_private_subnet : assoc.id]
-#     public  = [for assoc in azurerm_subnet_network_security_group_association.nsg_assosiation_public_subnet : assoc.id]
-#   }
-#   description = "The IDs of the NSG associations for both private and public subnets."
-# }

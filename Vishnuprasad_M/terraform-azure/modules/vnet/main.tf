@@ -59,13 +59,6 @@ resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gw_assoc" {
   depends_on     = [ azurerm_virtual_network.poc_vnet, azurerm_subnet.subnet ]
 }
 
-# # NAT - Subnets association for each subnet that has NAT enabled
-# resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gw_assoc" {
-#   count = length([for s in var.subnets : s if s.nat_gateway_enabled])
-#   subnet_id    = azurerm_subnet.subnet[count.index].id
-#   nat_gateway_id = azurerm_nat_gateway.vnet_nat_gw.id
-#   depends_on = [ azurerm_virtual_network.poc_vnet, azurerm_subnet.subnet ]
-# }
 resource "azurerm_subnet_network_security_group_association" "nsg_assosiation_private_subnet" {
   for_each = {
     for s in azurerm_subnet.subnet : s.name => s
