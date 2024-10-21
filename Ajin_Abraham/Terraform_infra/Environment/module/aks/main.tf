@@ -6,7 +6,7 @@ data "azurerm_kubernetes_service_versions" "current" {
 # aks cluster creation
 #----------------------------------------------------------------------------------
 resource "azurerm_kubernetes_cluster" "aks-cluster" {
-  name                     = var.name                  
+  name                     = var.cluster_name                 
   location                 = var.location
   resource_group_name     =  var.resource_group_name
   dns_prefix               = "${var.resource_group_name}-cluster"
@@ -27,7 +27,7 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
         "environment"   = var.environment
         "nodepoolos"  =  var.nodepoolos
          }
-   tags = {
+  tags = {
         "nodepool-type"   = var.nodepool-type 
         "environment"     = var.environment 
         "nodepoolos"       = var.nodepoolos 

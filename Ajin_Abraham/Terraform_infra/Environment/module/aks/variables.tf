@@ -14,7 +14,7 @@ variable "location" {
 
 
 
-variable "name" {
+variable "cluster_name" {
   description = "The name of the AKS cluster."
   type        = string
 }

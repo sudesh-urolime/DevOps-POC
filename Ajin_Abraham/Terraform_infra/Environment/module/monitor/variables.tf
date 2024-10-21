@@ -25,7 +25,7 @@ variable "retention_in_days" {
   default     = 30
 }
 
-variable "aks_cluster_name" {
+variable "cluster_name" {
   description = "Name of the AKS cluster"
   type        = string
 }
@@ -67,4 +67,3 @@ variable "metrics" {
     }
   ]
 }
-

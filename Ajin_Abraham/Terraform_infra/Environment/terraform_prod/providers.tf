@@ -14,10 +14,16 @@ terraform {
     resource_group_name  = "project-1"
     storage_account_name = "urolimeproject1storage"
     container_name       = "s3container"
-    key                  = "terraform.tfstate"
+    key                  = "prod-terraform.tfstate"
   }
 }
 
 provider "azurerm" {
-  features {}
+  features {
+
+  
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }

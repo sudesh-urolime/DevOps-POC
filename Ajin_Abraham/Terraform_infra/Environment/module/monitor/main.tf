@@ -7,9 +7,9 @@ resource "azurerm_log_analytics_workspace" "log_analytics" {
   retention_in_days   = var.retention_in_days
 }
 
-# Reference to existing AKS Cluster
+#Reference to existing AKS Cluster
 data "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                = var.aks_cluster_name
+  name                = var.cluster_name
   resource_group_name = var.resource_group_name
 }
 
@@ -35,4 +35,3 @@ resource "azurerm_monitor_diagnostic_setting" "aks_diagnostic" {
     }
   }
 }
-
