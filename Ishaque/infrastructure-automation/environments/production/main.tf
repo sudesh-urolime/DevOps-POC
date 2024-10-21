@@ -17,12 +17,12 @@ module "vpc" {
 }
 
 module "ec2" {
-  source        = "../../modules/ec2"
-  ami_id        = "ami-00f251754ac5da7f0"
-  instance_type = "t2.nano"
-  subnet_id     = element(module.vpc.public_subnet_ids, 0)
-  environment   = "prod"
-  depends_on    = [module.vpc]
+  source          = "../../modules/ec2"
+  ami_id          = "ami-00f251754ac5da7f0"
+  instance_type   = "t2.nano"
+  subnet_id       = element(module.vpc.public_subnet_ids, 0)
+  environment     = "prod"
+  depends_on      = [module.vpc]
   security_groups = [module.security-groups.ec2_sec_grp]
 }
 
@@ -51,3 +51,10 @@ module "security-groups" {
   source = "../../modules/security-groups"
   vpc_id = module.vpc.vpc_id
 }
+
+module "ssh-key-pairs" {
+  source             = "../../modules/ssh-key-pairs"
+  key_name           = "prod-bastion-key"
+  bastion_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHEVx/vVXrSamPAqnvbvRKOwD6rYXZT3wBfKUyYsGjgI ishaque.abdul@urolime.com"
+}
+
