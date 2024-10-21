@@ -24,6 +24,7 @@ module "ec2" {
   environment     = "prod"
   depends_on      = [module.vpc]
   security_groups = [module.security-groups.ec2_sec_grp]
+  key_name        = module.ssh-key-pairs.bastion_key_pair
 }
 
 module "iam" {

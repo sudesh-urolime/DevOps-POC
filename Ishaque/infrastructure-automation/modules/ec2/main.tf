@@ -6,6 +6,8 @@ resource "aws_instance" "bastion" {
   #  depends_on = [module.vpc]
   vpc_security_group_ids = var.security_groups
 
+  key_name = var.key_name
+
   tags = {
     Name        = "${var.environment}-bastion"
     Environment = var.environment

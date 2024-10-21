@@ -22,3 +22,9 @@ variable "security_groups" {
   description = "Bastion server security group"
   type        = list(any)
 }
+
+variable "key_name" {
+  description = "bastion ssh key name"
+  type        = string
+}
+
