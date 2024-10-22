@@ -8,3 +8,8 @@ output "public_subnet_ids" {
   value       = aws_subnet.public_subnet[*].id
 }
 
+#output "alb_pub_sub_ids" {
+#  description = "List of public subnet IDs for alb"
+#  value       = [for subnet in aws_subnet.public_subnet[*] : subnet.id]
+#}
+

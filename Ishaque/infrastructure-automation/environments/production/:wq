@@ -60,11 +60,9 @@ module "ssh-key-pairs" {
 }
 
 module "alb" {
-  source                          = "../../modules/alb"
-  prod_pub_alb_name               = "prod-pub-alb"
-  prod_pub_alb_sec_grps           = [module.security-groups.alb_sec_grp]
-  #prod_pub_alb_public_subnets_ids = module.vpc.alb_pub_sub_ids
-  prod_pub_alb_public_subnets_ids = module.vpc.public_subnet_ids
-  environment     = "prod"
+  source = "../../modules/alb"
+  prod_pub_alb_name = "prod-pub-alb"
+  prod_pub_alb_sec_grps = [module.security-groups.alb_sec_grp]
+  prod_pub_alb_public_subnets_cidr_blocks = [module.vpc.public_subnet_ids]
 }
 
