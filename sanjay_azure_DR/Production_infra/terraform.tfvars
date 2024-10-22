@@ -29,3 +29,29 @@ allocation_method     = "Dynamic"
   acr_name = "furnitureacr"
   
 #######################################################
+
+###################Blob_storage########################
+
+blob_name                     = "drsyncbucket"
+account_tier                  = "Standard"
+azurerm_storage_container_name = "sync-data"
+container_access_type          = "private"
+
+##################################################
+
+
+cluster_name                  = "furnitureapp-cluster" 
+node_pool_type                = "VirtualMachineScaleSets" 
+enable_auto_scaling           = "true" 
+default_node_pool_name         = "default"
+default_node_pool_vm_size      ="standard_b2ps_v2"
+max_count                      = 3
+min_count                      = 1 
+os_disk_size_gb                = 30   
+default_node_pool_zones        = [1, 2, 3]
+nodepool-type                  = "system"
+environment                    = "prod"
+nodepoolos                     = "linux"
+admin_username                 = "ubuntu" 
+load_balancer_sku              = "standard"
+network_plugin                 = "azure"

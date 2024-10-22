@@ -47,3 +47,56 @@ module "bastion" {
     resource_group_name = var.resource_group_name
     location            = var.location
   }
+
+
+
+########################blob_storage####################
+
+module "blob_storage" {
+  source = "../modules/Blob_storage"
+  blob_name = var.blob_name 
+  resource_group_name = var.resource_group_name
+  location = var.location
+  account_tier = var.account_tier
+  azurerm_storage_container_name = var.azurerm_storage_container_name
+  container_access_type = var.container_access_type
+}
+
+
+######################AKS################################
+
+#------------------------------------------------------------------------------
+ # creating aks
+ # created under aks_subnet with public ip disabled
+ #-------------------------------------------------------------------------------
+module "aks_cluster" {
+  source                         = "../modules/AKS_cluster"             # Path to the AKS child module
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  cluster_name                   = var.cluster_name             # "test"
+  default_node_pool_name         = var.default_node_pool_name    # "default"
+  default_node_pool_vm_size      = var.default_node_pool_vm_size #"standard_b2ps_v2"
+  default_node_pool_zones        = var.default_node_pool_zones   # [1, 2, 3]
+  enable_auto_scaling            = var.enable_auto_scaling       #  true
+  max_count                      = var.max_count
+  min_count                      = var.min_count
+  os_disk_size_gb                = var.os_disk_size_gb #30
+  node_pool_type                 = var.node_pool_type            #"VirtualMachineScaleSets"
+  aks_subnet_id                  = module.vnet.aks_subnet_id
+  node_labels = {                                                # Node labels
+    "nodepool-type"              = var.nodepool-type      #       "system"
+    "environment"                = var.environment                       #         "prod"
+    "nodepoolos"                 = var.nodepoolos        # "linux"
+      }
+  node_pool_tags = {                                             # Node tags   
+    "nodepool-type"              = var.nodepool-type
+    "environment"                = var.environment
+    "nodepoolos"                 = var.nodepoolos
+  }
+  nodepool-type                   = var.nodepool-type              # "system"
+  environment                     = var.environment                 #"prod"
+  nodepoolos                      = var.nodepoolos                  #"linux"
+  network_plugin                  = var .network_plugin              #"azure"
+  load_balancer_sku               = var.load_balancer_sku # "standard"
+  admin_username                  = var.admin_username         #"ubuntu"
+}
