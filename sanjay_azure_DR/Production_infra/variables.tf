@@ -6,15 +6,12 @@ variable "location" {
   type = string
 }
 
-#================vnet subnets  nat=================================
+######################VNET##########################
 
 variable "vnet_name" {
   type = string
 }
 
-# variable "location" {
-#   type = string
-# }
 variable "network_address_space" {
   description = "The network address space for the VNet"
   type        = list(string)
@@ -25,12 +22,7 @@ variable "aks_subnet_address_prefix" {
 variable "aks_subnet_address_name" {
   type = string
 }
-# variable "acr_subnet_address_prefix" {
-#   type = string
-# }
-# variable "acr_subnet_address_name" {
-#   type = string
-# }
+
 variable "storage_subnet_address_name" {
   type = string
 }
@@ -45,23 +37,8 @@ variable "tags" {
 
 
 
-###########################bastion######################
+###########################BASTION###################
 
-# variable "resource_group_name" {
-#   type = string
-# }
-
-# variable "location" {
-#   type = string
-# }
-
-#variable "vnet_id" {
-# type = string
-#}
-
-# variable "storage_subnet_id" {
-#   type = string
-# }
 variable "vm_name" {
   type = string
 }
@@ -77,46 +54,24 @@ variable "allocation_method" {
 
 }
 
-# variable "ip_name" {
-#   type = string
-# }
 
 variable "vm_size" {
   type = string
 }
 
-# variable "storage_subnet_id" {
-#   type = string
-# }
 
+##########################ACR###################
 
-#############ACR##################
 variable "acr_name" {
   type = string
 }
 
-# variable "resource_group_name" {
-#   type = string
-# }
-
-# variable "location" {
-#   type = string
-# }
-
-
-##############blob_storage################
+###########################BLOB_STORAGE##########
 
 variable "blob_name" {
   type = string
 }
 
-# variable "resource_group_name" {
-#   type = string
-# }
-
-# variable "location" {
-#   type = string
-# }
 
 variable "account_tier" {
   type = string
@@ -131,23 +86,7 @@ variable "container_access_type" {
 }
 
 
-##############AKS##############################
-
-# variable "resource_group_name" {
-#   description = "The name of the resource group in which the VNet is created."
-#   type        = string
-# }
-
-# variable "location" {
-#   description = "The location/region where the Virtual Network is created."
-#   type        = string
-# }
-###################################################
-
-
-#################################################################
-
-
+###################AKS_CLUSTER######################
 
 variable "cluster_name" {
   description = "The name of the AKS cluster."
@@ -194,22 +133,6 @@ variable "node_pool_type" {
   type        = string
 }
 
-# variable "node_labels" {
-#   description = "Labels for the default node pool."
-#   type        = map(string)
-# }
-
-# variable "node_pool_tags" {
-#   description = "Tags for the default node pool."
-#   type        = map(string)
-  
-# }
-
-#variable "ssh_public_key" {
-#  description = "The SSH public key for authentication."
-#  type        = string
-#}
-
 variable "network_plugin" {
   description = "The network plugin for the AKS cluster (e.g., 'azure')."
   type        = string
@@ -240,16 +163,46 @@ variable "nodepoolos" {
   type        = string
 }
 variable "aks_subnet_id" {
-    type = string
-    default = "value"
+  type    = string
+  default = "value"
 }
 
-# variable "resource_group_name" {
-#   description = "The name of the resource group in which the VNet is created."
+###################NATPUBLIVIP######################
+
+
+# variable "public_ip_names" {
+#   description = "The name of the Public IP."
 #   type        = string
 # }
 
+
+
+###################NATGATEWAY######################
+
+
+
+variable "nat_gateway_name" {
+  description = "The name of the NAT Gateway."
+  type        = string
+}
+
 # variable "location" {
-#   description = "The location/region where the Virtual Network is created."
+#   description = "The location for the NAT Gateway."
 #   type        = string
 # }
+
+# variable "resource_group_name" {
+#   description = "The name of the resource group where the NAT Gateway will be created."
+#   type        = string
+# }
+
+# variable "public_ip_id" {
+#   description = "The ID of the Public IP to associate with the NAT Gateway."
+#   type        = string
+# }
+
+# variable "private_subnet_id" {
+#   description = "The ID of the private subnet to associate with the NAT Gateway."
+#   type        = string
+# }
+

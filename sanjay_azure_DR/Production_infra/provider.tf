@@ -9,15 +9,8 @@ terraform {
       version = "~>3.0"
     }
   }
-  
-}
 
-# backend "azurerm" {
-#   resource_group_name  = "Dr_azure"
-#   storage_account_name = "statefilestoragesanjay"
-#   container_name       = "statefilestoragesanjay"
-#   key                  = "terraform.tfstate"
-# }
+}
 
 terraform {
   backend "azurerm" {
@@ -34,7 +27,7 @@ provider "azurerm" {
 
     resource_group {
       prevent_deletion_if_contains_resources = false
-  }
-
     }
+
+  }
 }
