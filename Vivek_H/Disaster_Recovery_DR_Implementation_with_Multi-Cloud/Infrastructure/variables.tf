@@ -110,13 +110,13 @@ variable "client_id" {
   
 }
 
-variable "client_secret" {
-  description = "Client secret of Azure"
+variable "uniqueKey" {
+  description = "Unique key for cosmosdb collection"
   type = string
-  
 }
 
-variable "uniqueKey" {
-  description = "Unique key value"
+
+variable "client_secret" {
+  description = "Client secret of Azure"
   type = string
 }

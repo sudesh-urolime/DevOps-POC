@@ -39,3 +39,8 @@ variable "network_interface_name" {
   type        = string
 
 }
+
+variable "nat_gateway_id" {
+  description = "nat gateway id"
+  type = string
+}

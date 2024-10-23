@@ -31,6 +31,7 @@ module "vnet" {
   public_ip           = module.jump_host_public_ip.public_ip_id
   public_subnet_prefix = var.public_subnet_prefix
   private_subnet_prefix = var.private_subnet_prefix
+  nat_gateway_id = module.nat_gateway.nat_gateway_id
 }
 
 # Module for NAT gateway public IP
