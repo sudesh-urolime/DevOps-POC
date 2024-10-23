@@ -53,11 +53,6 @@ variable "node_pool_tags" {
   type        = map(string)
 }
 
-#variable "ssh_public_key" {
-#  description = "The SSH public key for authentication."
-#  type        = string
-#}
-
 variable "network_plugin" {
   description = "The network plugin for the AKS cluster (e.g., 'azure')."
   type        = string

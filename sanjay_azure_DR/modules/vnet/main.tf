@@ -60,6 +60,22 @@ resource "azurerm_network_security_rule" "acr_allow_ssh" {
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.storage_nsg.name
 }
+
+# Define a security rule to allow ports 80 (HTTP) and 443 (HTTPS)
+resource "azurerm_network_security_rule" "acr_allow_http_https" {
+  name                        = "Allow-HTTP-HTTPS"
+  priority                    = 200
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_ranges     = ["80", "443"]
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.storage_nsg.name
+}
+
 #resource "azurerm_subnet_network_security_group_association" "aks_nsg_association" {
 #  subnet_id                 = azurerm_subnet.aks_subnet.id
 #  network_security_group_id = azurerm_network_security_group.aks_nsg.id

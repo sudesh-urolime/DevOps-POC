@@ -6,13 +6,6 @@ variable "location" {
   type = string
 }
 
-#variable "vnet_id" {
-# type = string
-#}
-
-# variable "acr_subnet_id" {
-#   type = string
-# }
 variable "vm_name" {
   type = string
 }
@@ -27,10 +20,6 @@ variable "allocation_method" {
     type = string
   
 }
-
-# variable "ip_name" {
-#   type = string
-# }
 
 variable "vm_size" {
   type = string
