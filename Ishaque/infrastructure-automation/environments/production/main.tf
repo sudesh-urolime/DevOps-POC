@@ -22,7 +22,7 @@ module "ec2" {
   instance_type   = "t2.nano"
   subnet_id       = element(module.vpc.public_subnet_ids, 0)
   environment     = "prod"
-  depends_on      = [module.vpc]
+  depends_on      = [module.vpc, module.ssh-key-pairs]
   security_groups = [module.security-groups.ec2_sec_grp]
   key_name        = module.ssh-key-pairs.bastion_key_pair
 }
@@ -60,11 +60,34 @@ module "ssh-key-pairs" {
 }
 
 module "alb" {
-  source                          = "../../modules/alb"
-  prod_pub_alb_name               = "prod-pub-alb"
-  prod_pub_alb_sec_grps           = [module.security-groups.alb_sec_grp]
+  source                = "../../modules/alb"
+  prod_pub_alb_name     = "prod-pub-alb"
+  prod_pub_alb_sec_grps = [module.security-groups.alb_sec_grp]
   #prod_pub_alb_public_subnets_ids = module.vpc.alb_pub_sub_ids
   prod_pub_alb_public_subnets_ids = module.vpc.public_subnet_ids
-  environment     = "prod"
+  environment                     = "prod"
+  tg_vpc_id                       = module.vpc.vpc_id
+  tg_name                         = "prod-mealie-tg"
+  prod_main_domain                = "dopeops.cloud"
 }
 
+module "ecs" {
+  source           = "../../modules/ecs"
+  ecs_cluster_name = "prod-mealie-cluster"
+  environment      = "prod"
+  task_def_name    = "prod-mealie-app"
+  task_cpu         = 512
+  task_mem         = 1024
+  #task_def_ecr_repository_url = module.ecr.ecr_repository_url
+  task_def_ecr_repository_url = "nginx"
+  ecs_execution_role_arn      = module.iam.ecs_task_execution_role_arn
+  ecs_svc_name                = "prod-mealie-app"
+  ecs_desired_count           = 1
+  ecs_tg_arn                  = module.alb.tg_arn
+  task_container_port         = 80
+  task_host_port              = 80
+  ecs_max_count               = 200
+  ecs_min_count               = 100
+  ecs_subnets                 = module.vpc.private_subnet_ids
+  ecs_sec_grps                = module.security-groups.ecs_sec_grp
+}

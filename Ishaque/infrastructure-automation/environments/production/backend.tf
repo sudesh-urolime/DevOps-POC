@@ -8,3 +8,9 @@ terraform {
     dynamodb_table = "terraform-state-lock"
   }
 }
+
+# For testing only
+# Set the default reigon.
+#provider "aws" {
+#  region = var.aws_region
+#}

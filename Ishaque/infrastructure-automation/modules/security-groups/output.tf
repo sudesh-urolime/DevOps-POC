@@ -8,4 +8,8 @@ output "alb_sec_grp" {
   value       = aws_security_group.alb_sec_grp.id
 }
 
+output "ecs_sec_grp" {
+  description = "Security group to be attached to the ECS service"
+  value       = aws_security_group.ecs_sec_grp.id
+}
 
