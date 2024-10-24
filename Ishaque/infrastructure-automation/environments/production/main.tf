@@ -33,14 +33,19 @@ module "iam" {
 }
 
 module "route53" {
-  source      = "../../modules/route53"
-  domain_name = "dopeops.cloud"
+  source           = "../../modules/route53"
+  domain_name      = "dopeops.cloud"
+  r53_alb_dns_name = module.alb.alb_dns_name
+  r53_alb_zone_id  = module.alb.alb_zone_id
+  #depends_on       = [module.alb]
 }
 
 module "certs" {
-  source      = "../../modules/certs"
-  domain_name = "dopeops.cloud"
-  environment = "prod"
+  source           = "../../modules/certs"
+  domain_name      = "dopeops.cloud"
+  environment      = "prod"
+  #depends_on       = [module.route53]
+  cert_r53_zone_id = module.route53.zone_id
 }
 
 module "ecr" {
@@ -69,10 +74,12 @@ module "alb" {
   tg_vpc_id                       = module.vpc.vpc_id
   tg_name                         = "prod-mealie-tg"
   prod_main_domain                = "dopeops.cloud"
+  alb_acm_cert_arn                = module.certs.acm_cert_arn
 }
 
 module "ecs" {
   source           = "../../modules/ecs"
+  #depends_on       = [module.iam, module.vpc, module.alb, module.security-groups]
   ecs_cluster_name = "prod-mealie-cluster"
   environment      = "prod"
   task_def_name    = "prod-mealie-app"

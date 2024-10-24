@@ -31,3 +31,5 @@ variable "prod_main_domain" {
   description = "Main production domain name"
   type        = string
 }
+
+variable "alb_acm_cert_arn" {}
