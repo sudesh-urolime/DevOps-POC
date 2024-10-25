@@ -4,9 +4,9 @@
 
 resource "azurerm_public_ip" "bastionip" {
   name                = var.pubip_name
-  location            = var.location                      #azurerm_resource_group.example.location
-  resource_group_name = var.resource_group_name           #azurerm_resource_group.example.name
-  allocation_method   = var.allocation_method             #"Dynamic"
+  location            = var.location                     
+  resource_group_name = var.resource_group_name          
+  allocation_method   = var.allocation_method            
 }
 #----------------------------------------------------------------------------
 #net work interface
@@ -14,12 +14,12 @@ resource "azurerm_public_ip" "bastionip" {
 
 resource "azurerm_network_interface" "bastionNI" {
   name                = var.networkinterface_name
-  location            = var.location                          #azurerm_resource_group.example.location
-  resource_group_name = var.resource_group_name               #azurerm_resource_group.example.name
+  location            = var.location                         
+  resource_group_name = var.resource_group_name              
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = var.acr_subnet_id          #azurerm_subnet.example.id
+    subnet_id                     = var.acr_subnet_id         
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.bastionip.id
   }
@@ -29,8 +29,8 @@ resource "azurerm_network_interface" "bastionNI" {
 #----------------------------------------------------------------------------
 resource "azurerm_virtual_machine" "bastion" {
   name                  = var.vm_name
-  location              = var.location                              #azurerm_resource_group.example.location
-  resource_group_name   = var.resource_group_name                    #azurerm_resource_group.example.name
+  location              = var.location                             
+  resource_group_name   = var.resource_group_name                   
   network_interface_ids = [azurerm_network_interface.bastionNI.id]
   vm_size               = "Standard_DC1ds_v3"
 

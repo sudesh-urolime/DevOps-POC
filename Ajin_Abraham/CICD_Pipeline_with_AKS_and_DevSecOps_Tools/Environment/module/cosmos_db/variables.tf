@@ -1,4 +1,4 @@
-variable "name" {
+variable "cosmosdb_name" {
   type = string
   description = "cosmosdb account name"
   default = ""
@@ -32,4 +32,11 @@ variable "consistency_level" {
   type = string
   description = "consistency level for cosmosdb"
   default = ""
+}
+#################################
+variable "storage_subnet_id" {
+  type = string
+}
+variable "vnet_id" {
+  type = string
 }

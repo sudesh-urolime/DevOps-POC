@@ -42,7 +42,7 @@ allocation_method             = "Dynamic"
 log_analytics_workspace_name   = "log-analytics-workspace"
 
 
-cosmosdb_name                       = "poc-db-azure-urolime"
+cosmosdb_name                       = "poc-db-azure-urolime-1"
 cosmosdb_offer_type                 = "Standard"
 cosmosdb_kind                       = "GlobalDocumentDB"
 cosmosdb_automatic_failover_enabled = "false"
