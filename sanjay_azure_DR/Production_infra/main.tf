@@ -15,7 +15,7 @@ module "vnet" {
 }
 
 
-#################BASTION###################################################
+#################BASTION################################################
 
 module "bastion" {
   source                = "../modules/bastion"
@@ -29,7 +29,7 @@ module "bastion" {
   vm_size               = var.vm_size
 }
 
-################ACR###################################################
+################ACR######################################################
 
 module "ACR" {
   source              = "../modules/ACR"
@@ -40,7 +40,7 @@ module "ACR" {
 
 
 
-################BLOB_STORAGE############################################
+################BLOB_STORAGE##############################################
 
 module "blob_storage" {
   source                         = "../modules/Blob_storage"
@@ -53,7 +53,7 @@ module "blob_storage" {
 }
 
 
-################AKS CLUSTER################################################
+################AKS CLUSTER##################################################
 
 
 module "aks_cluster" {
@@ -67,8 +67,8 @@ module "aks_cluster" {
   enable_auto_scaling       = var.enable_auto_scaling       #  true
   max_count                 = var.max_count
   min_count                 = var.min_count
-  os_disk_size_gb           = var.os_disk_size_gb #30
-  node_pool_type            = var.node_pool_type  #"VirtualMachineScaleSets"
+  os_disk_size_gb           = var.os_disk_size_gb           #30
+  node_pool_type            = var.node_pool_type            #"VirtualMachineScaleSets"
   aks_subnet_id             = module.vnet.aks_subnet_id
   node_labels = {                       # Node labels
     "nodepool-type" = var.nodepool-type # "system"

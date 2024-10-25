@@ -34,4 +34,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_diagnostic" {
       enabled  = metric.value.enabled
     }
   }
+  lifecycle {
+    ignore_changes = [log]  # Ignore changes in the logs block to prevent recreation
+  }
 }

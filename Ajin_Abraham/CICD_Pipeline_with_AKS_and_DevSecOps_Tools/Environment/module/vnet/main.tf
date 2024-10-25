@@ -6,9 +6,8 @@ resource "azurerm_virtual_network" "main" {
   location            = var.location
   resource_group_name = var.resource_group_name
   address_space       = var.network_address_space
-
   tags = var.tags
-}
+  }
 #----------------------------------------------------------------------------
 #subnet - 1 -----for aks
 #----------------------------------------------------------------------------
@@ -79,3 +78,7 @@ resource "azurerm_subnet_network_security_group_association" "storage_nsg_associ
   subnet_id                 = azurerm_subnet.storage.id
   network_security_group_id = azurerm_network_security_group.storage_nsg.id
 }
+
+
+
+
