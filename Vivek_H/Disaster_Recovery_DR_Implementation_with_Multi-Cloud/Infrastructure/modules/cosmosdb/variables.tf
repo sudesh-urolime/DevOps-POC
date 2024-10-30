@@ -29,3 +29,13 @@ variable "uniqueKey" {
   description = "Unique key value"
   type = string
 }
+
+variable "virtual_network_id" {
+  description = "Id of virtual network"
+  type = string
+}
+
+variable "vnet_name" {
+  description = "name of vnet"
+  type = string
+}

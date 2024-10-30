@@ -64,3 +64,26 @@ resource "azurerm_private_endpoint" "cosmosdb_private_endpoint" {
     subresource_names              = ["mongodb"]
   }
 }
+
+# Create Private DNS Zone for Cosmos DB
+resource "azurerm_private_dns_zone" "cosmosdb_dns_zone" {
+  name                = "privatelink.mongo.cosmos.azure.com"
+  resource_group_name = var.resource_group_name
+}
+
+# Link Private DNS Zone to the VNet
+resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link" {
+  name                  = "${var.vnet_name}-link"
+  resource_group_name   = var.resource_group_name
+  private_dns_zone_name = azurerm_private_dns_zone.cosmosdb_dns_zone.name
+  virtual_network_id    = var.virtual_network_id
+}
+
+# Create an A record in the Private DNS Zone
+resource "azurerm_private_dns_a_record" "cosmosdb_record" {
+  name                = azurerm_cosmosdb_account.mongodb_account.name
+  zone_name           = azurerm_private_dns_zone.cosmosdb_dns_zone.name
+  resource_group_name = var.resource_group_name
+  ttl                 = 300
+  records             = [azurerm_private_endpoint.cosmosdb_private_endpoint.private_service_connection[0].private_ip_address]
+}
