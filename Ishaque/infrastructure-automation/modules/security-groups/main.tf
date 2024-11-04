@@ -97,7 +97,7 @@ resource "aws_security_group" "ecs_sec_grp" {
   }
 }
 
-# Allow HTTP connection from the ALB from everywhere
+# Allow HTTP connection from the ALB
 resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_http" {
   security_group_id            = aws_security_group.ecs_sec_grp.id
   referenced_security_group_id = aws_security_group.alb_sec_grp.id
@@ -106,13 +106,22 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_http" {
   to_port                      = 80
 }
 
-# Allow HTTPS connection from the ALB from everywhere
+# Allow HTTPS connection from the ALB
 resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_https" {
   security_group_id            = aws_security_group.ecs_sec_grp.id
   referenced_security_group_id = aws_security_group.alb_sec_grp.id
   from_port                    = 443
   ip_protocol                  = "tcp"
   to_port                      = 443
+}
+
+# Allow port 9000 for the application to work
+resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_9000" {
+  security_group_id            = aws_security_group.ecs_sec_grp.id
+  referenced_security_group_id = aws_security_group.alb_sec_grp.id
+  from_port                    = 9000
+  ip_protocol                  = "tcp"
+  to_port                      = 9000
 }
 
 resource "aws_vpc_security_group_egress_rule" "ecs_allow_all_traffic_ipv4" {
