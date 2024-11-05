@@ -20,18 +20,21 @@ resource "aws_vpc_security_group_ingress_rule" "bastion_sec_grp_ssh" {
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
+  description = "Allow SSH access to the bastion server from any IP"
 }
 
 resource "aws_vpc_security_group_egress_rule" "bastion_allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.bastion_sec_grp.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to internet on all ports"
 }
 
 resource "aws_vpc_security_group_egress_rule" "bastion_allow_all_traffic_ipv6" {
   security_group_id = aws_security_group.bastion_sec_grp.id
   cidr_ipv6         = "::/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to all ipv6 address on all ports"
 }
 
 #####
@@ -57,6 +60,7 @@ resource "aws_vpc_security_group_ingress_rule" "alb_sec_grp_http" {
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
+  description = "Allow connections to port 80 from ALB"
 }
 
 # Allow HTTPS access to ALB from everywhere
@@ -66,18 +70,21 @@ resource "aws_vpc_security_group_ingress_rule" "alb_sec_grp_https" {
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
+  description = "Allow connections to port 443 from ALB"
 }
 
 resource "aws_vpc_security_group_egress_rule" "alb_allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.alb_sec_grp.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to internet on all ports"
 }
 
 resource "aws_vpc_security_group_egress_rule" "alb_allow_all_traffic_ipv6" {
   security_group_id = aws_security_group.alb_sec_grp.id
   cidr_ipv6         = "::/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to all ipv6 address on all ports"
 }
 
 
@@ -104,6 +111,7 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_http" {
   from_port                    = 80
   ip_protocol                  = "tcp"
   to_port                      = 80
+  description = "Allow connections to port 80 from ALB"
 }
 
 # Allow HTTPS connection from the ALB
@@ -113,6 +121,7 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_https" {
   from_port                    = 443
   ip_protocol                  = "tcp"
   to_port                      = 443
+  description = "Allow connections to port 443 from ALB"
 }
 
 # Allow port 9000 for the application to work
@@ -122,16 +131,19 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_sec_grp_9000" {
   from_port                    = 9000
   ip_protocol                  = "tcp"
   to_port                      = 9000
+  description = "Allow connections to port 9000 from ALB"
 }
 
 resource "aws_vpc_security_group_egress_rule" "ecs_allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.ecs_sec_grp.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to internet on all ports"
 }
 
 resource "aws_vpc_security_group_egress_rule" "ecsallow_all_traffic_ipv6" {
   security_group_id = aws_security_group.ecs_sec_grp.id
   cidr_ipv6         = "::/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+  description = "Allow connections from the server to all ipv6 address on all ports"
 }
