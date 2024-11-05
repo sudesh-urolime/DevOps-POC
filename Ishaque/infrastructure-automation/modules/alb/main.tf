@@ -7,7 +7,9 @@ resource "aws_lb" "prod_pub_alb" {
   #subnets = [for subnet in var.prod_pub_alb_public_subnets_cidr_blocks : subnet]
   subnets = var.prod_pub_alb_public_subnets_ids
 
-  enable_deletion_protection = true
+  # If we enable the deletion protection then terraform will not be able to delete the resource.
+  enable_deletion_protection = false
+
   #access_logs {
   #  bucket  = aws_s3_bucket.lb_logs.id
   #  prefix  = "test-lb"

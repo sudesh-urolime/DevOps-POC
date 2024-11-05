@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1' // Adjust based on your setup
+        //TERRAFORM_WORKSPACE = 'prod'
+        TERRAFORM_DIR = './Ishaque/infrastructure-automation/environments/production'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'mealie', url: 'https://github.com/ishaque-a-jaleel/DevOps-POC.git'
+            }
+        }
+
+        stage('Setup AWS Credentials') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws-access-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    script {
+                        // Set the credentials as environment variables globally
+                        env.AWS_ACCESS_KEY_ID = "${AWS_ACCESS_KEY_ID}"
+                        env.AWS_SECRET_ACCESS_KEY = "${AWS_SECRET_ACCESS_KEY}"
+                    }
+                }
+            }
+        }
+
+        stage("Terraform Init") {
+            steps {
+                sh 'terraform -chdir=${TERRAFORM_DIR} init -reconfigure'
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                sh 'terraform -chdir=${TERRAFORM_DIR} plan -destroy -out=tfplan'
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                input message: "Apply the Terraform plan?", ok: "Proceed"
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                sh 'terraform -chdir=${TERRAFORM_DIR} apply tfplan'
+            }
+        }
+    }
+}
