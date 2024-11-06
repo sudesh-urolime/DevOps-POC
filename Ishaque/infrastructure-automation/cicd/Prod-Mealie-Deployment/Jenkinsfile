@@ -1,14 +1,13 @@
 pipeline {
     agent any
-
     triggers {
         githubPush() // Trigger the build when a push is detected
     }
-
     environment {
         AWS_REGION = 'us-east-1' // Adjust based on your setup
         //TERRAFORM_WORKSPACE = 'prod'
         TERRAFORM_DIR = './Ishaque/infrastructure-automation/environments/production'
+        CHECKOV_SKIP_TEST = 'CKV_AWS_150,CKV_AWS_91,CKV_AWS_131,CKV_AWS_378,CKV_AWS_261,CKV2_AWS_28,CKV_AWS_103,CKV_AWS_126,CKV_AWS_79,CKV_AWS_135,CKV_AWS_8,CKV2_AWS_41,CKV_AWS_51,CKV_AWS_136,CKV_AWS_336,CKV2_AWS_39,CKV2_AWS_38,CKV2_AWS_23,CKV2_AWS_11,CKV2_AWS_12,CKV_AWS_24,CKV_AWS_260,CKV_AWS_260,CKV_AWS_130,CKV2_AWS_5'
     }
 
     stages {
@@ -59,6 +58,22 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 sh 'terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan'
+            }
+        }
+
+        stage('Checkov Scan') {
+            steps {
+                script {
+                    // Run Checkov scan on the specified Terraform directory
+                    def checkovCommand = "checkov -d ${TERRAFORM_DIR} --skip-check ${CHECKOV_SKIP_TEST} --quiet"
+                    def checkovResult = sh(script: checkovCommand, returnStatus: true)
+
+                    if (checkovResult != 0) {
+                        error("Checkov scan failed. Please review security and compliance issues.")
+                    } else {
+                        echo "Checkov scan passed with no issues."
+                    }
+                }
             }
         }
 
