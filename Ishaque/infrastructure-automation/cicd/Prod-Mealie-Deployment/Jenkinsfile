@@ -51,7 +51,30 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
+                //sh 'terraform -chdir=${TERRAFORM_DIR} init -reconfigure -upgrade'
                 sh 'terraform -chdir=${TERRAFORM_DIR} init -reconfigure'
+            }
+        }
+
+        //stage('test') {
+        //    steps {
+        //        sh 'ls -la ${TERRAFORM_DIR}'
+        //    }
+        //}
+
+        stage('TFLint Check') {
+            steps {
+                script {
+                    // Run TFLint on the specified Terraform directory
+                    def tflintCommand = "cd ${TERRAFORM_DIR} && tflint --init && tflint"
+                    def tflintResult = sh(script: tflintCommand, returnStatus: true)
+
+                    if (tflintResult != 0) {
+                        error("TFLint check failed. Please review and fix the issues.")
+                    } else {
+                        echo "TFLint check passed with no issues."
+                    }
+                }
             }
         }
 
