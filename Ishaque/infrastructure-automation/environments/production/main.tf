@@ -48,10 +48,11 @@ module "certs" {
   cert_r53_zone_id = module.route53.zone_id
 }
 
-module "ecr" {
-  source   = "../../modules/ecr"
-  ecr_repo = "prod-ecr-repo"
-}
+# ECR module has been disabled since it's not in use
+#module "ecr" {
+#  source   = "../../modules/ecr"
+#  ecr_repo = "prod-ecr-repo"
+#}
 
 module "security-groups" {
   source = "../../modules/security-groups"
